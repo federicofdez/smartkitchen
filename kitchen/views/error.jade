@@ -1,6 +1,10 @@
 extends layout
 
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+block main_content
+  .col-md-12
+    .col-middle
+      .text-center.text-center
+        h1.error-number= error.status
+        h2= message
+      .center
+        pre #{error.stack}

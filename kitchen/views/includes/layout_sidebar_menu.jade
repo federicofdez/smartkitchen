@@ -1,0 +1,54 @@
+//-sidebar menu
+#sidebar-menu.main_menu_side.hidden-print.main_menu
+  .menu_section
+    h3 My Kitchen
+    ul.nav.side-menu
+      li
+        a
+          i.fa.fa-home
+          | Appliances
+      li
+        a
+          i.fa.fa-cutlery
+          | Supplies
+          span.fa.fa-chevron-down
+        ul.nav.child_menu
+          li: a(href='#') See all
+          li: a(href='form.html') Fridge
+          li: a(href='form_advanced.html') Freezer
+          li: a(href='form_validation.html') Cupboard
+  .menu_section
+    h3 Recipes  
+    ul.nav.side-menu
+      li
+        a
+          i.fa.fa-home
+          | Home
+          span.fa.fa-chevron-down
+        ul.nav.child_menu
+          li: a(href='index.html') Dashboard
+          li: a(href='index2.html') Dashboard2
+          li: a(href='index3.html') Dashboard3
+      li
+        a
+          i.fa.fa-edit
+          | Forms
+          span.fa.fa-chevron-down
+        ul.nav.child_menu
+          li: a(href='form.html') General Form
+          li: a(href='form_advanced.html') Advanced Components
+          li: a(href='form_validation.html') Form Validation
+          li: a(href='form_wizards.html') Form Wizard
+          li: a(href='form_upload.html') Form Upload
+          li: a(href='form_buttons.html') Form Buttons
+
+//- menu footer buttons
+  .sidebar-footer.hidden-small
+    a(data-toggle='tooltip', data-placement='top', tittle='Settings')
+      span.glyphicon.glyphicon-cog(aria-hidden='true')
+    a(data-toggle='tooltip', data-placement='top', title='FullScreen')
+      span.glyphicon.glyphicon-fullscreen(aria-hidden='true')
+    a(data-toggle='tooltip', data-placement='top', title='Lock')
+      span.glyphicon.glyphicon-eye-close(aria-hidden='true')
+    a(data-toggle='tooltip', data-placement='top', title='Logout" href="login.html')
+      span.glyphicon.glyphicon-off(aria-hidden='true')
