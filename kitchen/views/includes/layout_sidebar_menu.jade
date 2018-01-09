@@ -4,8 +4,12 @@
     h3 My Kitchen
     ul.nav.side-menu
       li
-        a
+        a(href="/")
           i.fa.fa-home
+          | Home
+      li
+        a
+          i.fa.fa-cog
           | Appliances
       li
         a
@@ -13,7 +17,7 @@
           | Supplies
           span.fa.fa-chevron-down
         ul.nav.child_menu
-          li: a(href='#') See all
+          li: a(href='/supplies') See all
           li: a(href='form.html') Fridge
           li: a(href='form_advanced.html') Freezer
           li: a(href='form_validation.html') Cupboard

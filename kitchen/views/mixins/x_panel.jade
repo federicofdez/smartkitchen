@@ -1,0 +1,15 @@
+mixin x_panel(title, link)
+  .x_panel.tile.fixed_height_320
+    .x_title
+      h2= title
+      ul.nav.navbar-right.panel_toolbox
+        li
+          a.collapse-link: i.fa.fa-chevron-up
+        li.dropdown
+          a(href=link)
+            i.fa.fa-info
+        li
+          a.close-link: i.fa.fa-close
+      .clearfix
+    .x_content
+      block

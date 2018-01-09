@@ -1,5 +1,162 @@
 extends layout
 
-block content
-  p= title
-  p Welcome to #{title}
+block mainContent
+
+  //- Top Tiles
+  .row.tile_count
+    .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+      span.count_top
+        i.fa.fa-tasks
+        |  Average Eaten kCal
+      .count.green 1200
+      span.count_bottom
+        i.green
+          i.fa.fa-sort-asc
+          | 4%
+        |  From last Week
+    .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+      span.count_top
+        i.fa.fa-shopping-cart
+        |  Spent Money
+      .count.green 47.49€
+      span.count_bottom
+        i.green
+          i.fa.fa-sort-asc
+          | 15%
+        |  From last Week
+    .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+      span.count_top
+        i.fa.fa-cutlery
+        |  Cooked Recipes
+      .count.green 5
+      span.count_bottom
+        i.red
+          i.fa.fa-sort-desc
+          | 3
+        |  From last Week
+    .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+      span.count_top
+        i.fa.fa-cutlery
+        |  Added Recipes
+      .count.green 17
+      span.count_bottom
+        i.green
+          i.fa.fa-sort-asc
+          | 10
+        |  From last Week
+    .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+      span.count_top
+        i.fa.fa-clock-o
+        |  Time in Kitchen
+      .count.green 7h 25'
+      span.count_bottom
+        i.green
+          i.fa.fa-sort-asc
+          | 10%
+        |  From last Week
+    .col-md-2.col-sm-4.col-xs-6.tile_stats_count
+      span.count_top
+        i.fa.fa-clock-o
+        |  Time Cooking
+      .count.green 5h 47'
+      span.count_bottom
+        i.red
+          i.fa.fa-sort-desc
+          | 4%
+        |  From last Week
+
+  //- General Info
+  .row
+    .col-md-4.col-sm-4.col-xs-12
+      +x_panel("Food Eaten This Week", "/history")
+        table(class="", style={width: "100%"})
+          tr
+            th(style={width: "37%"})
+              p Top 5
+            th
+              .col-lg-7.col-md-7.col-sm-7.col-xs-7
+                p Device
+              .col-lg-5.col-md-5.col-sm-5.col-xs-5
+                p Progress
+          tr
+            td
+              canvas.canvasDoughnut(height="140", width="140", style={margin: "15px 10px 10px 0"})
+            td
+              table.tile_info
+                tr
+                  td: p
+                    i.fa.fa-square.blue
+                    | iOS
+                  td 30%
+                tr
+                  td: p
+                    i.fa.fa-square.green
+                    | Android
+                  </td>
+                  td 10%
+                tr
+                  td: p
+                    i.fa.fa-square.purple
+                    | Blackberry
+                  </td>
+                  td 20%
+                tr
+                  td: p
+                    i.fa.fa-square.aero
+                    | Android
+                  </td>
+                  td 15%
+                tr
+                  td: p
+                    i.fa.fa-square.red
+                    | Android
+                  </td>
+                  td 30%
+
+    .col-md-4.col-sm-4.col-xs-12
+      +x_panel("Recent Recipes", "/recipes")
+        - var lastRecipes = [{month: "Jan", day: "07", name: "Paella", link: "/recipes/Paella", meal: "Dinner"}, {month: "Jan", day: "06", name: "Carbonara Spaguetti", link: "/recipes/carbonaraspaguetti", meal: "Lunch"}, {month: "Jan", day: "06", name: "Nutella Crêpes", link: "/recipes/nutellacrepes", meal: "Breakfast"}]
+        each recipe in lastRecipes
+          article.media.event
+            a.pull-left.date
+              p.month= recipe.month
+              p.day= recipe.day
+            .media-body
+              a.title(href=recipe.link)= recipe.name
+              p= "Cooked for " + recipe.meal
+
+    .col-md-4.col-sm-4.col-xs-12
+      +x_panel("Kitchen Status", "/appliances")
+        table.table.table-hover
+          tbody
+            - var appliances = [{name: "oven", status: 0}, {name: "cooker#1", status: 0}, {name: "cooker#2", status: 1}, {name: "cooker#3", status: 1}, {name: "cooker#4", status: 0}, {name: "lights", status: 1}, {name: "scales", status: 2}]
+            each appliance in appliances
+              tr
+                th(scope="row")= appliance.name
+                case appliance.status
+                  when 0
+                    td: span.label.label-success.center Ready
+                  when 1
+                    td: span.label.label-warning.center In Use
+                  when 2
+                    td: span.label.label-danger.center Error
+                td: a(href="#") See Details
+
+  .row
+    .col-md-4.col-sm-4.col-xs-12
+      +x_panel("Fridge Supplies", "supplies/fridge")
+        - var supplies = [{name: "Apples", percentage: 0.30, value: "5 units"}, {name: "Sugar", percentage: 0.70, value: "1.5 kg"}, {name: "Cereal", percentage: 0.80, value: "2 boxes"}, {name: "Spaguetti", percentage: 0.10, value: "100 g"}, {name: "Milk", percentage: 0.80, value: "7 L"}, {name: "Orange Juice", percentage: 0.50, value: "2 L"}];
+        each supply in supplies
+          +supply_widget(supply)
+
+    .col-md-4.col-sm-4.col-xs-12
+      +x_panel("Freezer Supplies", "supplies/freezer")
+        - var supplies = [{name: "Apples", percentage: 0.30, value: "5 units"}, {name: "Sugar", percentage: 0.70, value: "1.5 kg"}, {name: "Cereal", percentage: 0.80, value: "2 boxes"}, {name: "Spaguetti", percentage: 0.10, value: "100 g"}, {name: "Milk", percentage: 0.80, value: "7 L"}, {name: "Orange Juice", percentage: 0.50, value: "2 L"}];
+        each supply in supplies
+          +supply_widget(supply)
+
+    .col-md-4.col-sm-4.col-xs-12
+      +x_panel("Cupboard Supplies", "supplies/cupboard")
+        - var supplies = [{name: "Apples", percentage: 0.30, value: "5 units"}, {name: "Sugar", percentage: 0.70, value: "1.5 kg"}, {name: "Cereal", percentage: 0.80, value: "2 boxes"}, {name: "Spaguetti", percentage: 0.10, value: "100 g"}, {name: "Milk", percentage: 0.80, value: "7 L"}, {name: "Orange Juice", percentage: 0.50, value: "2 L"}];
+        each supply in supplies
+          +supply_widget(supply)

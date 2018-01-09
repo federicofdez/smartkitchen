@@ -1,0 +1,21 @@
+extends ../layout
+
+block mainContent
+  .row
+    .col-md-4.col-sm-4.col-xs-12
+      +x_panel("Fridge Supplies", "supplies/fridge")
+        - var supplies = [{name: "Apples", percentage: 0.30, value: "5 units"}, {name: "Sugar", percentage: 0.70, value: "1.5 kg"}, {name: "Cereal", percentage: 0.80, value: "2 boxes"}, {name: "Spaguetti", percentage: 0.10, value: "100 g"}, {name: "Milk", percentage: 0.80, value: "7 L"}, {name: "Orange Juice", percentage: 0.50, value: "2 L"}];
+        each supply in supplies
+          +supply_widget(supply)
+
+    .col-md-4.col-sm-4.col-xs-12
+      +x_panel("Freezer Supplies", "supplies/freezer")
+        - var supplies = [{name: "Apples", percentage: 0.30, value: "5 units"}, {name: "Sugar", percentage: 0.70, value: "1.5 kg"}, {name: "Cereal", percentage: 0.80, value: "2 boxes"}, {name: "Spaguetti", percentage: 0.10, value: "100 g"}, {name: "Milk", percentage: 0.80, value: "7 L"}, {name: "Orange Juice", percentage: 0.50, value: "2 L"}];
+        each supply in supplies
+          +supply_widget(supply)
+
+    .col-md-4.col-sm-4.col-xs-12
+      +x_panel("Cupboard Supplies", "supplies/cupboard")
+        - var supplies = [{name: "Apples", percentage: 0.30, value: "5 units"}, {name: "Sugar", percentage: 0.70, value: "1.5 kg"}, {name: "Cereal", percentage: 0.80, value: "2 boxes"}, {name: "Spaguetti", percentage: 0.10, value: "100 g"}, {name: "Milk", percentage: 0.80, value: "7 L"}, {name: "Orange Juice", percentage: 0.50, value: "2 L"}];
+        each supply in supplies
+          +supply_widget(supply)
