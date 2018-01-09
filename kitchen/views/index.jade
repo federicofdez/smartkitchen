@@ -72,12 +72,12 @@ block mainContent
         table(class="", style={width: "100%"})
           tr
             th(style={width: "37%"})
-              p Top 5
+              p Diet Overview
             th
               .col-lg-7.col-md-7.col-sm-7.col-xs-7
-                p Device
+                p Type of Food
               .col-lg-5.col-md-5.col-sm-5.col-xs-5
-                p Progress
+                p Percentage
           tr
             td
               canvas.canvasDoughnut(height="140", width="140", style={margin: "15px 10px 10px 0"})
@@ -86,30 +86,30 @@ block mainContent
                 tr
                   td: p
                     i.fa.fa-square.blue
-                    | iOS
+                    | Vegetables
                   td 30%
                 tr
                   td: p
                     i.fa.fa-square.green
-                    | Android
+                    | Dairy Products
                   </td>
                   td 10%
                 tr
                   td: p
                     i.fa.fa-square.purple
-                    | Blackberry
+                    | Carbohydrates
                   </td>
                   td 20%
                 tr
                   td: p
                     i.fa.fa-square.aero
-                    | Android
+                    | Fruit
                   </td>
                   td 15%
                 tr
                   td: p
                     i.fa.fa-square.red
-                    | Android
+                    | Meat & Fish
                   </td>
                   td 30%
 
@@ -132,6 +132,8 @@ block mainContent
             - var appliances = [{name: "oven", status: 0}, {name: "cooker#1", status: 0}, {name: "cooker#2", status: 1}, {name: "cooker#3", status: 1}, {name: "cooker#4", status: 0}, {name: "lights", status: 1}, {name: "scales", status: 2}]
             each appliance in appliances
               tr
+                th(scope="row")
+                  i.fa.fa-dot-circle-o
                 th(scope="row")= appliance.name
                 case appliance.status
                   when 0
@@ -140,7 +142,6 @@ block mainContent
                     td: span.label.label-warning.center In Use
                   when 2
                     td: span.label.label-danger.center Error
-                td: a(href="#") See Details
 
   .row
     .col-md-4.col-sm-4.col-xs-12

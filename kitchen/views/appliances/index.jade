@@ -1,0 +1,24 @@
+extends ../layout
+
+block panelContent
+  table.table.table-hover
+    thead
+      tr
+        th Item
+        th Status
+        th Actions
+    tbody
+      - var appliances = [{name: "oven", status: 0, actions: [{name: "See Details", link: "#"}]}, {name: "cooker#1", status: 0, actions: [{name: "Read Temperature", link: "#"}, {name: "See Details", link: "#"}]}, {name: "cooker#2", status: 1, actions: [{name: "Read Temperature", link: "#"}, {name: "See Details", link: "#"}]}, {name: "cooker#3", status: 1, actions: [{name: "Read Temperature", link: "#"}, {name: "See Details", link: "#"}]}, {name: "cooker#4", status: 0, actions: [{name: "Read Temperature", link: "#"}, {name: "See Details", link: "#"}]}, {name: "lights", status: 1, actions: [{name: "See Details", link: "#"}]}, {name: "scales", status: 2, actions: [{name: "Read Measure", link: "#"}, {name: "See Details", link: "#"}]}]
+      each appliance in appliances
+        tr
+          th(scope="row", style="vertical-align: middle;")= appliance.name
+          case appliance.status
+            when 0
+              td(style="vertical-align: middle;"): span.label.label-success.center Ready
+            when 1
+              td(style="vertical-align: middle;"): span.label.label-warning.center In Use
+            when 2
+              td(style="vertical-align: middle;"): span.label.label-danger.center Error
+          td
+            each action, index in appliance.actions
+              div: a(href=action.link)= action.name

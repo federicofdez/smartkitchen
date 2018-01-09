@@ -1,21 +1,55 @@
 extends ../layout
 
-block mainContent
+block content
   .row
     .col-md-4.col-sm-4.col-xs-12
       +x_panel("Fridge Supplies", "supplies/fridge")
-        - var supplies = [{name: "Apples", percentage: 0.30, value: "5 units"}, {name: "Sugar", percentage: 0.70, value: "1.5 kg"}, {name: "Cereal", percentage: 0.80, value: "2 boxes"}, {name: "Spaguetti", percentage: 0.10, value: "100 g"}, {name: "Milk", percentage: 0.80, value: "7 L"}, {name: "Orange Juice", percentage: 0.50, value: "2 L"}];
-        each supply in supplies
+        each supply in fridgeSupplies
           +supply_widget(supply)
 
     .col-md-4.col-sm-4.col-xs-12
       +x_panel("Freezer Supplies", "supplies/freezer")
-        - var supplies = [{name: "Apples", percentage: 0.30, value: "5 units"}, {name: "Sugar", percentage: 0.70, value: "1.5 kg"}, {name: "Cereal", percentage: 0.80, value: "2 boxes"}, {name: "Spaguetti", percentage: 0.10, value: "100 g"}, {name: "Milk", percentage: 0.80, value: "7 L"}, {name: "Orange Juice", percentage: 0.50, value: "2 L"}];
-        each supply in supplies
+        each supply in freezerSupplies
           +supply_widget(supply)
 
     .col-md-4.col-sm-4.col-xs-12
       +x_panel("Cupboard Supplies", "supplies/cupboard")
-        - var supplies = [{name: "Apples", percentage: 0.30, value: "5 units"}, {name: "Sugar", percentage: 0.70, value: "1.5 kg"}, {name: "Cereal", percentage: 0.80, value: "2 boxes"}, {name: "Spaguetti", percentage: 0.10, value: "100 g"}, {name: "Milk", percentage: 0.80, value: "7 L"}, {name: "Orange Juice", percentage: 0.50, value: "2 L"}];
-        each supply in supplies
+        each supply in cupboardSupplies
           +supply_widget(supply)
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Detailed List
+          ul.nav.navbar-right.panel_toolbox
+            li: a.collapse-link: i.fa.fa-chevron-up
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+              ul.dropdown-menu(role='menu')
+                li: a(href='#') Settings 1
+                li: a(href='#') Settings 2
+            li: a.close-link: i.fa.fa-close
+          .clearfix
+        .x_content
+          table.table.table-hover
+            thead
+              tr
+                th Item
+                th Location
+                th Current Quantity
+                th Desired Quantity
+                th Automatic Purchase
+                th Actions
+            tbody
+              each supply in supplies
+                tr
+                  th(scope="row")= supply.name
+                  td= supply.location.charAt(0).toUpperCase() + supply.location.slice(1)
+                  td= supply.value
+                  td= supply.desired
+                  case supply.autoPurchase
+                    when true
+                      td: span.label.label-success.center Yes
+                    when false
+                      td: span.label.label-danger.center No
+                  td: a(href="#") Purchase

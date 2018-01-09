@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -42,5 +45,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+mongoose.connect('mongodb://localhost/kitchen')
+.then(() =>  console.log('connection succesful'))
+.catch((err) => console.error(err));
 
 module.exports = app;

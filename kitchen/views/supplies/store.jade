@@ -1,0 +1,24 @@
+extends ../layout
+
+block panelContent
+  .row
+    table.table.table-hover
+      thead
+        tr
+          th Item
+          th Current Quantity
+          th Desired Quantity
+          th Automatic Purchase
+          th Actions
+      tbody
+        each supply in supplies
+          tr
+            th(scope="row")= supply.name
+            td= supply.value
+            td= supply.desired
+            case supply.autoPurchase
+              when true
+                td: span.label.label-success.center Yes
+              when false
+                td: span.label.label-danger.center No
+            td: a(href="#") Purchase

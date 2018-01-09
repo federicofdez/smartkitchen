@@ -12,5 +12,5 @@ mixin supply_widget(supply)
           .progress-bar.bg-red(role="progressbar",aria-valuenow="60", aria-valuemin="0", aria-valuemax="100" style={width: percentage})
             span.sr-only= supply.percentage + " Complete"
     .w_right(style={width: "25%"})
-      span= supply.value
+      span= supply.value + " " + supply.units
     .clearfix
