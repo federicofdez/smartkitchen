@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 var Supply = require('./supplies');
+var Appliance = require('./appliances');
 
 mongoose.connect('mongodb://localhost/kitchen')
 .then(() =>  console.log('connection succesful'))
@@ -131,7 +132,7 @@ supplies.push(
 		units: "packets",
 		desired: 3,
 		value: 0.2,
-		autoPurchase: false,
+		autoPurchase: true,
 		location: "cupboard"
 	}),
 	new Supply({
@@ -192,6 +193,81 @@ supplies.push(
 
 for (var i=0; i<supplies.length; i++){
 	supplies[i].save(function (err) {
+		if (err) return handleError(err);
+		else console.log("Saved!");
+	});
+};
+
+var appliances = [];
+appliances.push(
+	new Appliance({
+		id: new mongoose.Types.ObjectId(),
+		name: "ExhaustFan",
+		actions: [
+			{
+				name: "Turn On",
+				endpoint: "/exhaustfan"
+			},
+			{
+				name: "Turn Off",
+				endpoint: "/exhaustfan"
+			}
+		],
+		isON: false
+	}),
+	new Appliance({
+		id: new mongoose.Types.ObjectId(),
+		name: "Oven",
+		actions: [
+			{
+				name: "Turn On",
+				endpoint: "/oven"
+			},
+			{
+				name: "Turn Off",
+				endpoint: "/oven"
+			},
+			{
+				name: "Read Temperature",
+				endpoint: "/readTemp"
+			}
+		],
+		isON: false
+	}),
+	new Appliance({
+		id: new mongoose.Types.ObjectId(),
+		name: "Stove",
+		actions: [
+			{
+				name: "Turn On",
+				endpoint: "/stove"
+			},
+			{
+				name: "Turn Off",
+				endpoint: "/stove"
+			},
+			{
+				name: "Read Temperature",
+				endpoint: "/readTemp"
+			}
+		],
+		isON: false
+	}),
+	new Appliance({
+		id: new mongoose.Types.ObjectId(),
+		name: "Scales",
+		actions: [
+			{
+				name: "Check",
+				endpoint: "/checkSupplies"
+			}
+		],
+		isON: false
+	})
+);
+
+for (var i=0; i<appliances.length; i++){
+	appliances[i].save(function (err) {
 		if (err) return handleError(err);
 		else console.log("Saved!");
 	});

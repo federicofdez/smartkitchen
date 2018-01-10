@@ -3,8 +3,10 @@ var router = express.Router();
 
 var suppliesController = require('../controllers/suppliesController');
 var appliancesController = require('../controllers/appliancesController');
+var purchaseController = require('../controllers/purchaseController');
 
-var  Supply = require('../models/supplies');
+var Supply = require('../models/supplies');
+var Appliance = require('../models/appliances');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -25,18 +27,25 @@ router.get('/', function(req, res, next) {
 				cupboardSupplies.push(supplies[i]);
 			}
 		}
-		res.render('index', {
-			fridgeSupplies: fridgeSupplies,
-			freezerSupplies: freezerSupplies,
-			cupboardSupplies: cupboardSupplies
-		});
+		Appliance.find({}, function(err, appliances){
+			res.render('index', {
+				fridgeSupplies: fridgeSupplies,
+				freezerSupplies: freezerSupplies,
+				cupboardSupplies: cupboardSupplies,
+				appliances: appliances
+			});
+		});		
 	});
 });
 
 router.get('/supplies', 						suppliesController.index);
 router.get('/supplies/:storeLocation(\\w+)',	suppliesController.store);
-router.get('/supplies/:supplyName(\\w+)/buy',		suppliesController.buy)
+router.get('/supplies/:supplyName(\\w+)/buy',	suppliesController.buy)
+router.get('/supplies/:supplyName(\\w+)/check',	suppliesController.check)
 
-router.get('/appliances',						appliancesController.index)
+router.get('/appliances',						appliancesController.index);
+router.get('/appliances/:applianceName(\\w+)', 	appliancesController.act);
+
+router.post('/triggerPurchase',					purchaseController.index)
 
 module.exports = router;

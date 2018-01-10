@@ -36,23 +36,30 @@ block content
               tr
                 th Item
                 th Location
-                th Current Quantity
                 th Desired Quantity
-                th Automatic Purchase
+                th Current Quantity
+                th Notify Purchase
                 th Actions
             tbody
               each supply in supplies
                 tr
-                  th(scope="row")= supply.name
-                  td= supply.location.charAt(0).toUpperCase() + supply.location.slice(1)
-                  td= supply.value + " " + supply.units
-                  td= supply.desired + " " + supply.units
+                  th(scope="row", style="vertical-align: middle;")= supply.name
+                  td(style="vertical-align: middle;")= supply.location.charAt(0).toUpperCase() + supply.location.slice(1)
+                  td(style="vertical-align: middle;")= supply.desired + " " + supply.units
+                  if supply.value/supply.desired < 0.15
+                    td(style="vertical-align: middle;")
+                      = supply.value + " " + supply.units + " "
+                      span.label.label-info Purchase Recommended
+                  else
+                    td(style="vertical-align: middle;"):= supply.value + " " + supply.units
                   case supply.autoPurchase
                     when true
-                      td: span.label.label-success.center Yes
+                      td(style="vertical-align: middle;"): span.label.label-success.center Yes
                     when false
-                      td: span.label.label-danger.center No
-                  td: a(href="/supplies/"+supply.name+"/buy") Purchase
+                      td(style="vertical-align: middle;"): span.label.label-danger.center No
+                  td(style="vertical-align: middle;")
+                    div: a(href="/supplies/"+supply.name+"/buy") Purchase
+                    div: a(href="/supplies/"+supply.name+"/check") Check Supplies
 
   if errorMessage !== undefined
     script.
@@ -61,6 +68,16 @@ block content
           title: 'Something went wrong',
           text: "#{errorMessage}",
           type: 'error',
+          styling: 'bootstrap3'
+        });
+      };
+  if suppliesMessage !== undefined
+    script.
+      window.onload = function() {
+        new PNotify({
+          title: 'Current Supplies of #{supplyName}',
+          text: "#{suppliesMessage}",
+          type: 'success',
           styling: 'bootstrap3'
         });
       };

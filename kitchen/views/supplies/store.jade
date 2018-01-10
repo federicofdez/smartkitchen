@@ -6,16 +6,21 @@ block panelContent
       thead
         tr
           th Item
-          th Current Quantity
           th Desired Quantity
-          th Automatic Purchase
+          th Current Quantity
+          th Notify Purchase
           th Actions
       tbody
         each supply in supplies
           tr
             th(scope="row")= supply.name
-            td= supply.value + " " + supply.units
             td= supply.desired + " " + supply.units
+            if supply.value/supply.desired < 0.15
+                    td
+                      = supply.value + " " + supply.units + " "
+                      span.label.label-info Purchase Recommended
+                  else
+                    td:= supply.value + " " + supply.units
             case supply.autoPurchase
               when true
                 td: span.label.label-success.center Yes

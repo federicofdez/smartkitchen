@@ -68,7 +68,7 @@ block mainContent
   //- General Info
   .row
     .col-md-4.col-sm-4.col-xs-12
-      +x_panel("Food Eaten This Week", "/history")
+      +x_panel("Food Eaten This Week", "#")
         table(class="", style={width: "100%"})
           tr
             th(style={width: "37%"})
@@ -114,7 +114,7 @@ block mainContent
                   td 30%
 
     .col-md-4.col-sm-4.col-xs-12
-      +x_panel("Recent Recipes", "/recipes")
+      +x_panel("Recent Recipes", "#")
         - var lastRecipes = [{month: "Jan", day: "07", name: "Paella", link: "/recipes/Paella", meal: "Dinner"}, {month: "Jan", day: "06", name: "Carbonara Spaguetti", link: "/recipes/carbonaraspaguetti", meal: "Lunch"}, {month: "Jan", day: "06", name: "Nutella Crêpes", link: "/recipes/nutellacrepes", meal: "Breakfast"}]
         each recipe in lastRecipes
           article.media.event
@@ -129,19 +129,15 @@ block mainContent
       +x_panel("Kitchen Status", "/appliances")
         table.table.table-hover
           tbody
-            - var appliances = [{name: "oven", status: 0}, {name: "cooker#1", status: 0}, {name: "cooker#2", status: 1}, {name: "cooker#3", status: 1}, {name: "cooker#4", status: 0}, {name: "lights", status: 1}, {name: "scales", status: 2}]
             each appliance in appliances
               tr
                 th(scope="row")
                   i.fa.fa-dot-circle-o
                 th(scope="row")= appliance.name
-                case appliance.status
-                  when 0
-                    td: span.label.label-success.center Ready
-                  when 1
-                    td: span.label.label-warning.center In Use
-                  when 2
-                    td: span.label.label-danger.center Error
+                if appliance.isON
+                  td: span.label.label-warning.center In Use
+                else
+                  td: span.label.label-success.center Ready
 
   .row
     .col-md-4.col-sm-4.col-xs-12

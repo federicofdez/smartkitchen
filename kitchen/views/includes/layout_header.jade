@@ -6,8 +6,8 @@
       ul.nav.navbar-nav.navbar-right
         li(class="")
           a.user-profile.dropdown-toggle(href='javascript:;', data-toggle='dropdown', aria-expanded='false')
-            img(src='/img/img.jpg', alt="")
-            | John Doe
+            img(src='/img/remy.jpg', alt="")
+            | Remy
             | 
             span.fa.fa-angle-down
           ul.dropdown-menu.dropdown-usermenu.pull-right
@@ -23,22 +23,19 @@
         li(role='presentation', class='dropdown') 
           a.dropdown-toggle.info-number(href='javascript:;', data-toggle='dropdown' ,aria-expanded='false') 
             i.fa.fa-shopping-cart
-            span.badge.bg-green 2
+            span.badge.bg-green= purchases.length.toString()
           ul#menu1.dropdown-menu.list-unstyled.msg_list(role='menu')
-            li: a 
-              span.image: img(src='/img/img.jpg', alt='Profile Image') 
-              span 
-                span John Smith
-                span.time 3 mins ago
-              span.message Film festivals used to be do-or-die moments for movie makers. They were where...
-            li: a 
-              span.image: img(src='/img/img.jpg', alt='Profile Image') 
-              span 
-                span John Smith
-                span.time 3 mins ago
-              span.message Film festivals used to be do-or-die moments for movie makers. They were where...
-            li
+            each purchase in purchases
+              li: a(href="/supplies/"+purchase.name+"/buy")
+                span.image: i.fa.fa-shopping-basket(style="font-size: 30px !important; float: left; margin-right: 10px; width: 11%")
+                span 
+                  span= purchase.name
+                  //-span.time 3 mins ago
+                span.message
+                  | You're running out of 
+                  strong #{purchase.name}
+                  | . Your Smart Kitchen recommends you to buy more!
               .text-center
-                a
-                  strong See All Alerts
+                a(href="/supplies")
+                  strong See All Purchases 
                   i.fa.fa-angle-right
