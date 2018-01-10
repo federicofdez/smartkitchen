@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 // create a schema
 var purchaseSchema = new Schema({
   id: Schema.Types.ObjectId,
-  name: { type: String, required: true}
+  name: { type: String, unique: true, required: true}
 });
 
 // the schema is useless so far
