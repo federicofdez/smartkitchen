@@ -110,14 +110,12 @@ exports.buy = function(req, res, next){
 //GET /supplies/:supplyName/check
 exports.check = function(req, res, next){
 	request({
-			url: 'localhost:1880/checkSupplies',
+			url: 'http:\/\/localhost:1880/checkSupplies',
 			json: true
 		}, function (error, response, body) {
-			body = {fsr1: 600, fsr2: 175};
-
 			Supply.find({name: req.params.supplyName}, function(err, supplies){
 				if (supplies[0].fsr){
-					var value = body['fsr'+supplies[0].fsr.toString()]/1024;
+					var value = body['FSR'+supplies[0].fsr.toString()]/1024;
 					var desired = supplies[0].desired;
 					supplies[0].value = Math.round(desired*value);
 					supplies[0].save(function(err){

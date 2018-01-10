@@ -40,7 +40,7 @@ exports.act = function(req, res, next){
 		}
 		
 		request({
-			url: 'localhost:1880' + endpoint,
+			url: 'http:\/\/localhost:1880' + endpoint,
 			method: method,
 			json: json,
 			body: body
