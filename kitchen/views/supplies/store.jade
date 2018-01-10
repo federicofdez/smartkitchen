@@ -14,11 +14,17 @@ block panelContent
         each supply in supplies
           tr
             th(scope="row")= supply.name
-            td= supply.value
-            td= supply.desired
+            td= supply.value + " " + supply.units
+            td= supply.desired + " " + supply.units
             case supply.autoPurchase
               when true
                 td: span.label.label-success.center Yes
               when false
                 td: span.label.label-danger.center No
-            td: a(href="#") Purchase
+            td: a(href="/supplies/"+supply.name+"/buy") Purchase
+
+  //- Modals
+    each supply in supplies
+      +modal("Confirm Purchase", "buy" + supply.name, supply.amazonID)
+    
+    

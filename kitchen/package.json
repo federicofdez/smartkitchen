@@ -7,6 +7,7 @@
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
+    "amazon-product-api": "^0.4.4",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
@@ -16,6 +17,7 @@
     "mongodb": "^3.0.1",
     "mongoose": "^4.13.9",
     "morgan": "~1.9.0",
+    "request": "^2.83.0",
     "serve-favicon": "~2.4.5"
   },
   "devDependencies": {

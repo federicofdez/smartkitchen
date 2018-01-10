@@ -45,11 +45,22 @@ block content
                 tr
                   th(scope="row")= supply.name
                   td= supply.location.charAt(0).toUpperCase() + supply.location.slice(1)
-                  td= supply.value
-                  td= supply.desired
+                  td= supply.value + " " + supply.units
+                  td= supply.desired + " " + supply.units
                   case supply.autoPurchase
                     when true
                       td: span.label.label-success.center Yes
                     when false
                       td: span.label.label-danger.center No
-                  td: a(href="#") Purchase
+                  td: a(href="/supplies/"+supply.name+"/buy") Purchase
+
+  if errorMessage !== undefined
+    script.
+      window.onload = function() {
+        new PNotify({
+          title: 'Something went wrong',
+          text: "#{errorMessage}",
+          type: 'error',
+          styling: 'bootstrap3'
+        });
+      };

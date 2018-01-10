@@ -1,4 +1,15 @@
-var  Supply = require('../models/supplies');
+var Supply = require('../models/supplies');
+var amazon = require('amazon-product-api');
+
+var awsId = "AKIAILZUYJMQV4SVDSBA",
+	awsSecret = "gd1bXFLAsFMG45QsvVOgem6F7IqrCN9BVsWXSJe4",
+	awsTag = "sampleiotapps-21";
+
+var amazonClient = amazon.createClient({
+  awsId: awsId,
+  awsSecret: awsSecret,
+  awsTag: awsTag
+});
 
 // GET /supplies
 exports.index = function(req, res, next){
@@ -6,7 +17,7 @@ exports.index = function(req, res, next){
 		var fridgeSupplies = [];
 		var freezerSupplies = [];
 		var cupboardSupplies = [];
-		for (var i=0; i<6; i++){
+		for (var i=0; i<supplies.length; i++){
 			supplies[i].percentage = supplies[i].value/supplies[i].desired;
 			if (supplies[i].location == 'fridge')
 				fridgeSupplies.push(supplies[i]);
@@ -20,7 +31,8 @@ exports.index = function(req, res, next){
 			supplies: supplies,
 			fridgeSupplies: fridgeSupplies,
 			freezerSupplies: freezerSupplies,
-			cupboardSupplies: cupboardSupplies
+			cupboardSupplies: cupboardSupplies,
+			errorMessage: req.query.error !== "" ? req.query.error : undefined
 		});
 	});
 };
@@ -34,6 +46,55 @@ exports.store = function(req, res, next){
 			pageTitle: storeLocation.charAt(0).toUpperCase() + storeLocation.slice(1) + " Supplies",
 			pageSubtitle: "Current Supplies",
 			supplies: supplies
+		});
+	});
+}
+
+//GET /supplies/:supplyName/buy
+exports.buy = function(req, res, next){
+	Supply.find({name: req.params.supplyName}, function(err, supplies){
+		/*
+		amazonClient.itemLookup({
+			itemId: supplies[0].amazonID,
+			responseGroup: 'ItemAttributes,Offers,Images',
+			domain: 'webservices.amazon.de',
+			}, function(err, results, response) {
+				if (err) {
+					res.redirect('/supplies');
+				} else {
+					res.render('supplies/buy', {
+						pageTitle: "Confirm Purchase of " + req.params.supplyName,
+						pageSubtitle: results[0]['ItemAttributes'][0]['Title'][0],
+						amazonObject: results[0]
+					});
+				}
+			}
+		);
+		*/
+		amazonClient.itemSearch({
+		 	searchIndex: 'Grocery',
+		 	keywords: req.params.supplyName,
+		 	domain: 'webservices.amazon.de',
+		 	responseGroup: 'ItemAttributes,Images'
+		}, function(err, results, response) {
+			if (err) {
+				console.log(results);
+				var errorMessage = escape('There is currently a problem with Amazon API. Please try later.');
+				res.redirect('/supplies?error=' + errorMessage);
+			} else {
+				if (results.length === 0){
+					var errorMessage = escape('Unable to find product in Amazon');
+					res.redirect('/supplies?error=' + errorMessage);
+				}
+				if (results.length > 6)
+					results = results.slice(0,6);
+				res.render('supplies/buy', {
+					pageTitle: "Confirm Purchase of " + req.params.supplyName,
+					amazonObjects: results,
+					awsId: awsId,
+					awsTag: awsTag
+				});
+			}
 		});
 	});
 }

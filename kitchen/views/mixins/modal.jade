@@ -1,0 +1,110 @@
+mixin modal(title, id, itemID)
+  
+  .modal.fade(class=id, tabindex="-1", role="dialog", aria-hidden="true", style="display: none;")
+    .modal-dialog.modal-sm
+      .modal-content
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-label="Close")
+            span(aria-hidden="true") x
+          h4.modal-title#myModalLabel2= title
+        .modal-body
+          block
+        .modal-footer
+          span.a-button.a-button-primary.a-button-icon
+            a(
+            target="_blank"
+            href="http://www.amazon.de/gp/aws/cart/add.html?AWSAccessKeyId=AKIAILZUYJMQV4SVDSBA&AssociateTag=sampleiotapps-21&ASIN.1=" + itemID + "&Quantity.1=1" style="text-decoration:none;"
+            )
+              span.a-button-inner
+                i.a-icon.a-icon-cart
+                input.a-button-input(type="submit")
+                span.a-button-text(aria-hidden="true") Add to Cart
+          style.
+            .a-button {
+                padding: 0;
+                vertical-align: middle;
+                border: 1px solid;
+                border-color: #adb1b8 #a2a6ac #8d9096;
+                text-align: center;
+                overflow: hidden;
+                text-decoration: none !important;
+                cursor: pointer;
+                display: inline-block;
+                background: #d8dde6;
+                background: #e7e9ec;
+                border-radius: 3px;
+            }
+            .a-button-text {
+                padding: 0px 10px 0px 11px;
+                text-align: center;
+                color: #111111;
+                font-size: 13px;
+                line-height: 29px;
+                display: block;
+                font-family: Arial, sans-serif;
+                background-color: transparent;
+                margin: 0;
+                border: 0;
+                outline: 0;
+                white-space: nowrap;
+                padding: 0 20px 0 39px; }
+            .a-button-inner {
+                display: block;
+                position: relative;
+                overflow: hidden;
+                height: 29px;
+                box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
+                border-radius: 2px; }
+            .a-button-input {
+                position: absolute;
+                z-index: 20;
+                height: 100%;
+                width: 100%;
+                left: 0px;
+                top: 0px;
+                background-color: white;
+                outline: 0;
+                border: 0;
+                overflow: visible;
+                cursor: pointer;
+                opacity: 0.01;
+                filter: alpha(opacity=1); }
+            .a-button-primary {
+                border-color: #a88734 #9c7e31 #846a29;
+                color: #111111;
+                background: #f0c14b; }
+            .a-button-primary .a-button-inner {
+                background: #f3d078;
+                background: -webkit-linear-gradient(top, #f7dfa5, #f0c14b);
+                background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7dfa5', endColorstr='#f0c14b',GradientType=0);
+                *zoom: 1; }
+            .a-button-primary:hover .a-button-inner {
+                background: #f1c860;
+                background: -webkit-linear-gradient(top, #f5d78e, #eeb933);
+                background: linear-gradient(to bottom, #f5d78e, #eeb933);
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5d78e', endColorstr='#eeb933',GradientType=0);
+                *zoom: 1; }
+            .a-button-primary:active .a-button-inner {
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset;
+                background-color: #f0c14b;
+                background-image: none;
+                filter: none; }
+            .a-button-primary:hover {
+                border-color: #9c7e31 #90742d #786025; }
+            .a-button-primary:active {
+                border-color: #a88734 #9c7e31 #9c7e31; }
+            .a-icon-cart {
+                left: 2px;
+                top: 2px;
+                position: absolute;
+                height: 25px;
+                width: 25px;
+                background-position: -35px -5px;
+                background-image: url(http://g-ecx.images-amazon.com/images/G/01/amazonui/sprites/aui_sprite_0037-1x._V1_.png);
+                background-repeat: no-repeat;
+                background-size: 400px 600px;
+                -webkit-background-size: 400px 600px;
+                display: inline-block;
+                vertical-align: top;
+            }
