@@ -45,9 +45,21 @@ exports.act = function(req, res, next){
 			json: json,
 			body: body
 		}, function (error, response, body) {
-			res.redirect('/appliances?actionResult=' + escape(body) +
-				"&actionName=" + action + 
-				"&appliance=" + req.params.applianceName);
+			if (action.includes("Turn")) {
+				Appliance.find({name: req.params.applianceName}, function(err, appliances) {
+					appliances[0].isOn = action.includes("On") ? true : false;
+					appliances[0].save(function(err){
+						res.redirect('/appliances?actionResult=' + escape(body) +
+							"&actionName=" + action + 
+							"&appliance=" + req.params.applianceName);
+					});
+				});
+			} else {
+				res.redirect('/appliances?actionResult=' + escape(body) +
+					"&actionName=" + action + 
+					"&appliance=" + req.params.applianceName);
+			}
+			
 		});
 	});
 }

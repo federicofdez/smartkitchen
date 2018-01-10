@@ -272,6 +272,17 @@ appliances.push(
 	}),
 	new Appliance({
 		id: new mongoose.Types.ObjectId(),
+		name: "Thermometer",
+		actions: [
+			{
+				name: "Read Temperature",
+				endpoint: "/readtemp"
+			}
+		],
+		isON: false
+	}),
+	new Appliance({
+		id: new mongoose.Types.ObjectId(),
 		name: "Scales",
 		actions: [
 			{
