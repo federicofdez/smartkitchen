@@ -16,7 +16,8 @@ supplies.push(
 		desired: 10,
 		value: 8,
 		autoPurchase: false,
-		location: "fridge"
+		location: "fridge",
+		fsr: 1
 	}),
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
@@ -133,7 +134,8 @@ supplies.push(
 		desired: 3,
 		value: 0.2,
 		autoPurchase: true,
-		location: "cupboard"
+		location: "cupboard",
+		fsr: 2
 	}),
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
@@ -217,6 +219,21 @@ appliances.push(
 	}),
 	new Appliance({
 		id: new mongoose.Types.ObjectId(),
+		name: "Socket",
+		actions: [
+			{
+				name: "Turn On",
+				endpoint: "/socket"
+			},
+			{
+				name: "Turn Off",
+				endpoint: "/socket"
+			}
+		],
+		isON: false
+	}),
+	new Appliance({
+		id: new mongoose.Types.ObjectId(),
 		name: "Oven",
 		actions: [
 			{
@@ -229,7 +246,7 @@ appliances.push(
 			},
 			{
 				name: "Read Temperature",
-				endpoint: "/readTemp"
+				endpoint: "/readtemp"
 			}
 		],
 		isON: false
@@ -248,7 +265,7 @@ appliances.push(
 			},
 			{
 				name: "Read Temperature",
-				endpoint: "/readTemp"
+				endpoint: "/readtemp"
 			}
 		],
 		isON: false

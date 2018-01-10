@@ -31,7 +31,7 @@ exports.act = function(req, res, next){
 		if (action.includes("Turn")) {
 			method = "POST";
 			body = {
-				state: action.includes("On") ? "on" : "off"
+				state: action.includes("On") ? 1 : 0
 			};
 			json = true;
 		} else {

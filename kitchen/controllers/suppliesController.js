@@ -113,8 +113,24 @@ exports.check = function(req, res, next){
 			url: 'localhost:1880/checkSupplies',
 			json: true
 		}, function (error, response, body) {
-			res.redirect('/supplies?suppliesMessage=' + escape(body) +
-				"&supplyName=" + req.params.supplyName);
+			body = {fsr1: 600, fsr2: 175};
+
+			Supply.find({name: req.params.supplyName}, function(err, supplies){
+				if (supplies[0].fsr){
+					var value = body['fsr'+supplies[0].fsr.toString()]/1024;
+					var desired = supplies[0].desired;
+					supplies[0].value = Math.round(desired*value);
+					supplies[0].save(function(err){
+						if (err) console.log(err);
+					});
+					res.redirect('/supplies?suppliesMessage=' + escape("There are currently " + Math.round(desired*value) + " " + supplies[0].units) +
+						"&supplyName=" + req.params.supplyName);
+				}
+				else {
+					res.redirect('/supplies?suppliesMessage=' + escape("FSR not connected") +
+					"&supplyName=" + req.params.supplyName);
+				}
+			});		
 		});
 
 };

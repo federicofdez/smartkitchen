@@ -10,7 +10,8 @@ var supplySchema = new Schema({
   desired: { type: String, required: true},
   value: Number,
   autoPurchase: Boolean,
-  location: String
+  location: String,
+  fsr: Number
 });
 
 // the schema is useless so far
