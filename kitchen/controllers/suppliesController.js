@@ -77,33 +77,35 @@ exports.buy = function(req, res, next){
 		);
 	});
 	*/
-	amazonClient.itemSearch({
-	 	searchIndex: 'Grocery',
-	 	keywords: req.params.supplyName,
-	 	domain: 'webservices.amazon.de',
-	 	responseGroup: 'ItemAttributes,Images'
-	}, function(err, results, response) {
-		if (err) {
-			console.log(results);
-			var errorMessage = escape('There is currently a problem with Amazon API. Please try later.');
-			res.redirect('/supplies?error=' + errorMessage);
-		} else {
-			if (results.length === 0){
-				var errorMessage = escape('Unable to find product in Amazon');
+	Supply.find({name: req.params.supplyName}, function(err, supplies){
+		amazonClient.itemSearch({
+		 	searchIndex: 'Grocery',
+		 	keywords: supplies[0].germanName,
+		 	domain: 'webservices.amazon.de',
+		 	responseGroup: 'ItemAttributes,Images'
+		}, function(err, results, response) {
+			if (err) {
+				console.log(results);
+				var errorMessage = escape('There is currently a problem with Amazon API. Please try later.');
 				res.redirect('/supplies?error=' + errorMessage);
-			}
-			if (results.length > 6)
-				results = results.slice(0,6);
+			} else {
+				if (results.length === 0){
+					var errorMessage = escape('Unable to find product in Amazon');
+					res.redirect('/supplies?error=' + errorMessage);
+				}
+				if (results.length > 6)
+					results = results.slice(0,6);
 
-			Purchase.remove({name: req.params.supplyName}, function(err, result){
-				res.render('supplies/buy', {
-					pageTitle: "Confirm Purchase of " + req.params.supplyName,
-					amazonObjects: results,
-					awsId: awsId,
-					awsTag: awsTag
+				Purchase.remove({name: req.params.supplyName}, function(err, result){
+					res.render('supplies/buy', {
+						pageTitle: "Confirm Purchase of " + req.params.supplyName,
+						amazonObjects: results,
+						awsId: awsId,
+						awsTag: awsTag
+					});
 				});
-			});
-		}
+			}
+		});
 	});
 };
 

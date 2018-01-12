@@ -47,7 +47,7 @@ exports.act = function(req, res, next){
 		}, function (error, response, body) {
 			if (action.includes("Turn")) {
 				Appliance.find({name: req.params.applianceName}, function(err, appliances) {
-					appliances[0].isOn = action.includes("On") ? true : false;
+					appliances[0].isON = action.includes("On") ? true : false;
 					appliances[0].save(function(err){
 						res.redirect('/appliances?actionResult=' + escape(body) +
 							"&actionName=" + action + 

@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 var supplySchema = new Schema({
   id: Schema.Types.ObjectId,
   name: { type: String, required: true},
+  germanName: { type: String, required: true},
   units: { type: String, required: true},
   desired: { type: String, required: true},
   value: Number,

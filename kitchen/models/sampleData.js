@@ -12,16 +12,17 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Apples",
+		germanName: "Aepfel",
 		units: "units",
 		desired: 10,
 		value: 8,
 		autoPurchase: false,
-		location: "fridge",
-		fsr: 1
+		location: "fridge"
 	}),
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Rice",
+		germanName: "Reis",
 		units: "kg",
 		desired: 2,
 		value: 1.5,
@@ -31,6 +32,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Spaguetti",
+		germanName: "Spaghetti",
 		units: "kg",
 		desired: 3,
 		value: 0.75,
@@ -40,15 +42,18 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Milk",
+		germanName: "Milch",
 		units: "L",
 		desired: 5,
 		value: 4,
 		autoPurchase: false,
-		location: "fridge"
+		location: "fridge",
+		fsr: 1
 	}),
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Flour",
+		germanName: "Mehl",
 		units: "kg",
 		desired: 2,
 		value: 0.5,
@@ -58,6 +63,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Yoghurt",
+		germanName: "Joghurt",
 		units: "units",
 		desired: 8,
 		value: 1,
@@ -67,6 +73,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Bananas",
+		germanName: "Bananen",
 		units: "units",
 		desired: 8,
 		value: 3,
@@ -76,6 +83,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Tomatoes",
+		germanName: "Tomaten",
 		units: "units",
 		desired: 10,
 		value: 8,
@@ -84,7 +92,8 @@ supplies.push(
 	}),
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
-		name: "Ice Cream",
+		name: "IceCream",
+		germanName: "Eis",
 		units: "L",
 		desired: 1,
 		value: 0.4,
@@ -94,6 +103,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Salmon",
+		germanName: "Lachs",
 		units: "g",
 		desired: 800,
 		value: 400,
@@ -103,6 +113,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Schnitzel",
+		germanName: "Schnitzel",
 		units: "units",
 		desired: 5,
 		value: 2,
@@ -112,6 +123,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Onions",
+		germanName: "Zwiebeln",
 		units: "units",
 		desired: 10,
 		value: 8,
@@ -121,6 +133,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Sugar",
+		germanName: "Zucker",
 		units: "kg",
 		desired: 2,
 		value: 1.2,
@@ -130,6 +143,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Cookies",
+		germanName: "Cookies",
 		units: "packets",
 		desired: 3,
 		value: 0.2,
@@ -140,6 +154,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Oil",
+		germanName: "Oel",
 		units: "L",
 		desired: 4,
 		value: 3.75,
@@ -149,6 +164,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Salt",
+		germanName: "Salz",
 		units: "kg",
 		desired: 2,
 		value: 1,
@@ -158,6 +174,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Pepper",
+		germanName: "Pfeffer",
 		units: "g",
 		desired: 100,
 		value: 30,
@@ -167,6 +184,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Vinegar",
+		germanName: "Essig",
 		units: "L",
 		desired: 1,
 		value: 0.8,
@@ -176,6 +194,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Ham",
+		germanName: "Kochschinken",
 		units: "Slices",
 		desired: 12,
 		value: 1,
@@ -185,6 +204,7 @@ supplies.push(
 	new Supply({
 		id: new mongoose.Types.ObjectId(),
 		name: "Cheese",
+		germanName: "Kaese",
 		units: "Slices",
 		desired: 12,
 		value: 3,
@@ -249,7 +269,7 @@ appliances.push(
 				endpoint: "/readtemp"
 			}
 		],
-		isON: false
+		isON: true
 	}),
 	new Appliance({
 		id: new mongoose.Types.ObjectId(),
